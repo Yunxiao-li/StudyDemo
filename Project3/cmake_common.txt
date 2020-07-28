@@ -1,0 +1,78 @@
+cmake_minimum_required (VERSION 3.0)
+
+#********************************************************************
+# Preprocessor Definitions for release and debug
+if(${CMAKE_BUILD_TYPE} MATCHES "Release")
+  add_definitions(-DLINUX)
+else(${CMAKE_BUILD_TYPE} MATCHES "Release")
+  set(CMAKE_BUILD_TYPE "Debug")
+  add_definitions(-DLINUX -DLINUX_D)
+endif(${CMAKE_BUILD_TYPE} MATCHES "Release")
+
+#********************************************************************
+# Define TARGET_OS constant
+set(TARGET_OS_DIBIAN 				"Debian")
+set(ARGET_OS_WINDOWS 				"Windows")
+
+if (NOT (DEFINED TARGET_OS))
+	if ((${CMAKE_SYSTEM_NAME}) MATCHES ("Linux"))
+		if(EXISTS /etc/debian_version)
+			set(TARGET_OS ${TARGET_OS_DIBIAN})
+		else()
+			message(FATAL_ERROR "!!! CMAKE_SYSTEM_NAME is unknown : " ${CMAKE_SYSTEM_NAME})		
+		endif()
+	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")	
+		set(TARGET_OS ${TARGET_OS_WINDOWS})
+	else()
+		message(FATAL_ERROR "!!! CMAKE_SYSTEM_NAME is unknown : " ${CMAKE_SYSTEM_NAME})		
+	endif()
+endif()
+message (STATUS "TARGET_OS: " ${TARGET_OS})
+if (${TARGET_OS} MATCHES ${TARGET_OS_DIBIAN})
+	add_definitions(-DTARGET_OS_DIBIAN)
+elseif 	(${TARGET_OS} MATCHES ${TARGET_OS_WINDOWS})
+	add_definitions(-DTARGET_OS_WINDOWS)
+else()
+	message(FATAL_ERROR "!!! TARGET_OS is set with a unknown value: " ${TARGET_OS})		
+endif()
+add_definitions(-D_TARGET_OS=\"${TARGET_OS}\")
+
+#********************************************************************
+# Define debug and release version
+set(CMAKE_CXX_FLAGS_DEBUG   "$ENV{CXXFLAGS} -O0 -Wall -Wfatal-errors -std=gnu++0x -g -ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O2 -Wall -Wfatal-errors -std=gnu++0x")
+# support c++11
+if (CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} -std=c++11")
+    message(STATUS "CMAKE_CXX_FLAGS: " ${CMAKE_CXX_FLAGS})  
+endif()
+if(${CMAKE_BUILD_TYPE} MATCHES "Release")
+    message(STATUS "CMAKE_CXX_FLAGS_RELEASE: " ${CMAKE_CXX_FLAGS_RELEASE})
+else()
+    message(STATUS "CMAKE_CXX_FLAGS_DEBUG: " ${CMAKE_CXX_FLAGS_DEBUG})
+endif(${CMAKE_BUILD_TYPE} MATCHES "Release")
+
+#********************************************************************
+# set output path
+if(${TARGET_OS} MATCHES ${TARGET_OS_DIBIAN})
+  if(${CMAKE_BUILD_TYPE} MATCHES "Release")
+    set (LIBRARY_OUTPUT_PATH ${PROJECT_PATH}/lib)
+	set (EXECUTABLE_OUTPUT_PATH ${PROJECT_PATH}/bin)
+	set (STATIC_LIBRARY_ROOT_PATH ${PROJECT_PATH}/lib)
+  else()
+    set (LIBRARY_OUTPUT_PATH ${PROJECT_PATH}/lib_debug)
+	set (EXECUTABLE_OUTPUT_PATH ${PROJECT_PATH}/bin_debug)
+	set (STATIC_LIBRARY_ROOT_PATH ${PROJECT_PATH}/lib_debug)
+  endif() 
+else()
+	message(FATAL_ERROR "\n!!!\nTARGET_OS not set or can not be detected, Stopped !!!\n")  
+endif()
+
+#********************************************************************
+# set include file path
+include_directories (${PROJECT_PATH}/include)
+
+#********************************************************************
+# set link path
+link_directories (${PROJECT_PATH}/lib)
+
