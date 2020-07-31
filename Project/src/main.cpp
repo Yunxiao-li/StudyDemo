@@ -20,7 +20,7 @@ int main (int agc, char* argv[])
 	po::variables_map vm;
 	po::store(po::parse_command_line(agc, argv, desc), vm);
 	po::notify(vm);    
-
+//test
     if (0 == vm.size())
 	{
 		std::cout << desc << std::endl;
