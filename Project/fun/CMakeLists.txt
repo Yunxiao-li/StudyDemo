@@ -21,6 +21,9 @@ endwhile(NOT TEMP_PATH)
 endif(NOT PROJECT_PATH)
 #--------end if----------
 set (PROJECT_PATH ${TEMP_PATH})
+if (NOT ROOT_PATH)
+  set (ROOT_PATH ${project}/../../../..)
+endif()
 # include common setting
 include (${PROJECT_PATH}/cmake_common.txt)
 #*********************************************

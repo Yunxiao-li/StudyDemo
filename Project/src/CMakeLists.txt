@@ -21,6 +21,9 @@ endwhile(NOT TEMP_PATH)
 endif(NOT PROJECT_PATH)
 #--------end if----------
 set (PROJECT_PATH ${TEMP_PATH})
+if (NOT ROOT_PATH)
+  set (ROOT_PATH ${PROJECT_PATH}/../../../..)
+endif()
 # include common setting
 include (${PROJECT_PATH}/cmake_common.txt)
 #*********************************************
@@ -29,9 +32,10 @@ project (src)
 
 # set cpp list
 set (SRC_LIST main.cpp)
-
+set (TARGET_NAME demo)
 # create execute file
-add_executable (demo ${SRC_LIST})
+add_executable (${TARGET_NAME} ${SRC_LIST})
 
 # link library
-target_link_libraries (demo MyDll)
+target_link_libraries (${TARGET_NAME} MyDll)
+target_link_libraries (${TARGET_NAME} boost_program_options)

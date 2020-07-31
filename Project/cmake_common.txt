@@ -71,8 +71,15 @@ endif()
 #********************************************************************
 # set include file path
 include_directories (${PROJECT_PATH}/include)
+include_directories (${ROOT_PATH}/UIH/include/external)
 
 #********************************************************************
 # set link path
 link_directories (${PROJECT_PATH}/lib)
+link_directories (${ROOT_PATH}/UIH/lib_linux_debug/external)
+
+# debug info
+if (${DEBUG_MSG})
+message (STATUS "ROOT_PATH: " ${ROOT_PATH})
+endif()
 
