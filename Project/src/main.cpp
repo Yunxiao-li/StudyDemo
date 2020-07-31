@@ -21,6 +21,7 @@ int main (int agc, char* argv[])
 	po::store(po::parse_command_line(agc, argv, desc), vm);
 	po::notify(vm);    
 
+	// print help info
     if (0 == vm.size())
 	{
 		std::cout << desc << std::endl;
