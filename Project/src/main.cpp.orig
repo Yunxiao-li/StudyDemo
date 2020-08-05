@@ -15,14 +15,17 @@ int main (int agc, char* argv[])
 	desc.add_options()
 		("help", "produce help message")
 		("compression", po::value<int>(), "set compression level")
-        ("test,t", "test function")
 	;
 
 	po::variables_map vm;
 	po::store(po::parse_command_line(agc, argv, desc), vm);
 	po::notify(vm);    
+<<<<<<< HEAD
 
 	// print help info
+=======
+//test
+>>>>>>> test
     if (0 == vm.size())
 	{
 		std::cout << desc << std::endl;
@@ -37,29 +40,11 @@ int main (int agc, char* argv[])
 	if (vm.count("compression")) {
 		cout << "Compression level was set to " 
 	 << vm["compression"].as<int>() << ".\n";
+	} else {
+		cout << "Compression level was not set.\n";
 	}
 	
     std::cout << "hello world" << std::endl;
     foo();
-    std::cout << "1 + 1 = " << CMath::add(1,1) << std::endl;
-    try
-    {
-        std::cout << "5.0 / 2 = " << CMath::div(5.0, 2.0) << std::endl;
-        std::cout << "5.0 / 0 = " << CMath::div(5.0, 0.0) << std::endl;
-    }
-    catch (std::exception& e)
-    {
-        std::cout << e.what();
-    }
-
-    CDigit<int> d1(1);
-    CDigit<int> d2(10);
-    CDigit<int> d3;
-    d3 = d2 + d1;
-    std::cout << "d2 + d1 = " << d3.value() << std::endl;
-    d3 = 20;
-    d3 += 10;
-    std::cout << "d3 = " << d3.value() << std::endl;
-
     return 0;
 }
