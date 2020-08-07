@@ -5,3 +5,4 @@ project (demo)
 # add subdirectory for build
 add_subdirectory(fun)
 add_subdirectory(src)
+add_subdirectory(ut)

@@ -1,5 +1,6 @@
 #include <iostream>
-#include "header.h"
+#include "my_template.h"
+#include "my_operator.h"
 
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -39,8 +40,9 @@ int main (int agc, char* argv[])
 	 << vm["compression"].as<int>() << ".\n";
 	}
 	
-    std::cout << "hello world" << std::endl;
-    foo();
+    foo<int>();
+    foo<double>();
+
     std::cout << "1 + 1 = " << CMath::add(1,1) << std::endl;
     try
     {
@@ -60,6 +62,13 @@ int main (int agc, char* argv[])
     d3 = 20;
     d3 += 10;
     std::cout << "d3 = " << d3.value() << std::endl;
+
+    Complex c1(5, 4), c2(2, 10), c3;
+    cout << "c1= " << c1 << endl;
+
+    Clock clo(10,30,20);
+    cout << clo++;
+    cout << ++clo;
 
     return 0;
 }
