@@ -6,14 +6,14 @@ set (DEBUG_MSG true)
 #*********** Common Configurationr ***********
 #--------begin if----------
 if (NOT PROJECT_PATH)
-set (CURRENT_PATH ${PROJECT_SOURCE_DIR})
+set (CURRENT_PATH ${CMAKE_SOURCE_DIR})
 find_path (TEMP_PATH cmake_common.txt ${CURRENT_PATH}/Linux/Project)
 #--------begin while----------
 while (NOT TEMP_PATH)
 set (CURRENT_PATH ${CURRENT_PATH}/..)
 find_path (TEMP_PATH cmake_common.txt ${CURRENT_PATH}/Linux/Project)
 if (${DEBUG_MSG})
-#message("CURRENT_PATH:  		" ${CURRENT_PATH})
+message("CURRENT_PATH: " ${CURRENT_PATH})
 message (STATUS "TEMP_PATH: ${TEMP_PATH}")
 endif(${DEBUG_MSG})
 endwhile(NOT TEMP_PATH)
@@ -39,4 +39,4 @@ set (TARGET_NAME demo_ut)
 add_executable (${TARGET_NAME} ${SRC_LIST})
 
 # link library
-target_link_libraries (${TARGET_NAME} gtest)
+target_link_libraries (${TARGET_NAME} gtest pthread)
