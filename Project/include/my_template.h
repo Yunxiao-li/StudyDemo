@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////
 /*
 The file introduces some basic knowledge about template
-template can reduce repetitive code
+template can reduce repetitive code and avoid consistency issues
 */
 //////////////////////////////////////////////////////////////////////////
 #pragma once
@@ -203,6 +203,13 @@ void DynamicArray<T>::resize(int sz)
     {
         return;
     }
+	T* newList = new T[sz];
+	int ismall = sz < m_size ? sz : m_size;
+	for (int i = 0; i < ismall; ++i)
+	{
+		newList[i] = m_list[i];
+	}
     delete [] m_list;
-    m_list = new T[sz];
+    m_list = newList;
+	m_size = sz;
 }

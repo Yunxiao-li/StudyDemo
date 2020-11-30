@@ -61,3 +61,5 @@ build/
 *.a
 bin_debug/
 bin/
+*/Debug/
+*/x64/

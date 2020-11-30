@@ -75,13 +75,13 @@ Binary operator
 
 --------------------------------------------
 One: Override operator as member function
-num of parameter = num or oprd - 1
+num of parameter = num of oprd - 1
 oprd1 B oprd2 equals to oprd1.operator B(oprd2)
 
 --------------------------------------------
 Two: Override Operator as non-member function
 Some operator can not override as member function, such as
-1. left operand is not a object for a binary operator
+1. left operand is not an object for a binary operator
 2. the third library or interfaces
 Rules:
 num of parameter = num of operand (except post ++ or --)
